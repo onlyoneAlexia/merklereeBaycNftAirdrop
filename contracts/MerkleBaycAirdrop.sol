@@ -10,7 +10,7 @@ import "@openzeppelin/contracts/token/ERC20/IERC20.sol";
 
 
 
-contract BoredApeAirdrop is Ownable{
+contract BaycAirdrop is Ownable{
 
     bytes32 public merkleRoot;
     IERC20 public token;
