@@ -10,8 +10,10 @@ describe("MerkleAirdrop", function () {
     const [owner] = await ethers.getSigners();
 
     // Deploy ERC20 token
-    const nftCoin = await ethers.getContractFactory("Nftcoin");
-    const token = await nftCoin.deploy();
+    const Alexia = await ethers.getContractFactory("Alexia");
+    const token = await Alexia.deploy();
+
+    await token.waitForDeployment();
 
     const addr1 = "0x76C1cFe708ED1d2FF2073490727f3301117767e9";
     const addr2 = "0x6b4DF334368b09f87B3722449703060EEf284126";
@@ -30,12 +32,12 @@ describe("MerkleAirdrop", function () {
     // Deploy MerkleAirdrop
     const BaycAirdrop = await ethers.getContractFactory("BaycAirdrop");
     const airdrop = await BaycAirdrop.deploy(token, root);
+    await airdrop.waitForDeployment();
 
     // Transfer tokens to the airdrop contract
-    await token.transfer(await airdrop.getAddress(), ethers.parseEther("1000"));
+    //await token.transfer(await airdrop.getAddress(), ethers.parseEther("1000"));
 
-    return { token, airdrop, owner, addr1, addr2, merkleTree};
-  }
+    return { token, airdrop, owner, addr1, addr2, merkleTree};  }
 
   it("Should deploy the contract with correct ERC20 token and Merkle root", async function () {
     const { token, airdrop, merkleTree} = await loadFixture(deployFixture);

@@ -8,15 +8,19 @@ interface CsvRow {
   amount: string;
 }
 
-const values: [string, string][] = [];
+export async function main() {
+  
 
-fs.createReadStream("airdrop.csv")
+const values: [string, string][] = [];
+let tree: any;
+
+fs.createReadStream("eligibleusers.csv")
   .pipe(csv())
   .on("data", (row: CsvRow) => {
     values.push([row.address, row.amount]);
   })
   .on("end", () => {
-    const tree = StandardMerkleTree.of(values, ["address", "uint256"]);
+     tree = StandardMerkleTree.of(values, ["address", "uint256"]);
     console.log("Merkle Root:", tree.root);
 
     // Write the tree to a JSON file
@@ -44,3 +48,11 @@ fs.createReadStream("airdrop.csv")
   .on("error", (err: Error) => {
     console.error("Error reading 'airdrop.csv':", err);
   });
+
+  //return root
+ // return tree.root
+}
+
+if(require.main === module) {
+  main();
+}

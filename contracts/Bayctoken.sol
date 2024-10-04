@@ -4,7 +4,7 @@ pragma solidity ^0.8.20;
 
 import "@openzeppelin/contracts/token/ERC20/ERC20.sol";
 
-contract Nftcoin is ERC20("Alexia", "Axia") {
+contract Alexia is ERC20("Alexia", "Axia") {
     address public owner;
 
     constructor() {
